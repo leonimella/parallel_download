@@ -4,7 +4,7 @@ defmodule ParallelDownload do
   """
   alias ParallelDownload.Client
 
-  @max_concurrency 20
+  @max_concurrency Application.fetch_env!(:parallel_download, :max_concurrency)
 
   def begin(urls) do
     request_stream =

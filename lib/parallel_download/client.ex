@@ -1,7 +1,7 @@
 defmodule ParallelDownload.Client do
   use Tesla
 
-  @timeout 1_000
+  @timeout Application.fetch_env!(:parallel_download, :request_timeout)
 
   defp client() do
     Tesla.client([
