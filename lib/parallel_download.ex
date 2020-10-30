@@ -2,10 +2,9 @@ defmodule ParallelDownload do
   @moduledoc """
   Documentation for `ParallelDownload`.
   """
-
   alias ParallelDownload.Client
 
-  @max_concurrency 5
+  @max_concurrency 20
 
   def begin(urls) do
     request_stream =
@@ -20,7 +19,7 @@ defmodule ParallelDownload do
         max_concurrency: @max_concurrency
       )
 
-    Enum.reduce(request_stream, fn {:ok, response}, _ -> IO.puts(response) end)
+    Enum.map(request_stream, fn {:ok, response} -> IO.puts(response) end)
   end
 
   defp append_elapsed_time(response, start_time) do
