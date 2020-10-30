@@ -8,12 +8,12 @@ The purpose of this app is to make **GET** requests to a given list of urls. You
 **ParallelDownload** is a common Elixir app and therefore is expected that you have it installed on your machine. However in this project you will also find a `docker-compose.yml` file so you can run via Docker
 
 Make sure that you are on the project root folder and then run the following command. This will get the dependencies and compile the project
-```shell
+```
 mix do deps.get, compile
 ```
 
 If you would like to run via `docker-compose`, just prepend the previous command with docker-compose specific options, for instance:
-```shell
+```
 docker-compose run --rm app mix do deps.get, compile
 ```
 
@@ -38,13 +38,13 @@ You can also configure some operational aspects of this app by editing the `conf
 
 ---
 Let's begin by covering the URLs passed by as arguments. To start the app with this options just run
-```shell
+```
 mix download https://www.google.com https://github.com
 ```
 The task will initialize the app and pass a list with only two URLs `["https://www.google.com", "https://github.com"]`
 
 If the app succeeded, it will output some information, like this:
-```shell
+```
 GET https://www.google.com -> status 200 in 508ms
 GET https://github.com -> status 200 in 1642ms
 ```
@@ -55,7 +55,7 @@ Besides the previous running option, you also have the possibility to run the ap
 This way can be really useful if you have a big list of URLs to **GET** to (pun intended 🥁).
 
 So simple run the command passing the path to file as the argument
-```shell
+```
 mix download /path/to/file/file.txt
 ```
 ⚠️ The file format accepted by the app is **very restricted** so make sure that it follows these rules:
@@ -69,22 +69,23 @@ You can use the example file `urls.txt` on the project root folder to take a pic
 This app won't store any relevant information after it's finished his job, with that thought in mind we can run the app with the `docker-compose run --rm app` command, so after the app job is finished the docker container will be discarded.
 
 The same as the installation process, you could run the app with the previous commands only prepend the `docker-compose` bit:
-```shell
+```
 docker-compose run --rm app mix download /path/to/file/file.txt
 ```
 ---
 ### 🚀 Running the app with a single script
 To execute all the above commands, tasks and tests you can execute the `run.sh` script, so just:
-```shell
+```
 ./run.sh
 ```
 
 With docker:
-```shell
+```
 docker-compose run --rm app ./run.sh
 ```
 
 ## Tests
-
-
-## Development process
+To run the test suite just execute the command
+```
+mix test
+```

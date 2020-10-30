@@ -14,3 +14,6 @@ mix download https://www.google.com https://telnyx.com
 
 printf "\n${bold}Running with file${normal} \"mix download urls.txt\"\n"
 mix download urls.txt
+
+printf "\n${bold}Running tests${normal} \"mix test\"\n"
+mix test
