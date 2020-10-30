@@ -5,7 +5,7 @@ defmodule ParallelDownload.Client do
 
   defp client() do
     Tesla.client([
-      {Tesla.Middleware.Timeout, timeout: @timeout},
+      {Tesla.Middleware.Timeout, timeout: @timeout}
     ])
   end
 
