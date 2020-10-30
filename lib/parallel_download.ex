@@ -17,10 +17,8 @@ defmodule ParallelDownload do
           Client.fetch(url)
           |> append_elapsed_time(start_time)
         end,
-        [
-          max_concurrency: @max_concurrency,
-          timeout: @task_timeout
-        ]
+        max_concurrency: @max_concurrency,
+        timeout: @task_timeout
       )
 
     Enum.map(request_stream, fn {:ok, response} -> IO.puts(response) end)
