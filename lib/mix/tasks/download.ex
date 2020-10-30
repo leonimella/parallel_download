@@ -8,7 +8,8 @@ defmodule Mix.Tasks.Download do
 
       cond do
         Enum.count(tail) == 0 && String.contains?(path, ".txt")->
-          txt_file_to_list(path)
+          File.stream!(path, [], :line)
+          |> Stream.map(fn string -> String.trim(string) end)
           |> ParallelDownload.begin()
         Enum.count(tail) > 0 ->
           ParallelDownload.begin(args)
@@ -20,12 +21,17 @@ defmodule Mix.Tasks.Download do
     end
   end
 
-  defp txt_file_to_list(path) do
-    File.stream!(path, [], :line)
-    |> Stream.map(fn string -> String.trim(string) end)
-  end
-
   defp print_help() do
-    "Help text"
+    """
+    Welcome to the Parallel Download App
+    The purpose of this apps is to make GET requests to an given list of urls. You can pass them as an argument or via a .txt file.
+    Please, refer to README.md file for more details\n
+    Usage:
+      Passing urls directly as argunments:
+      - mix download http://first-url.com http://second-url.com\n
+      Passing urls through a .txt file:
+      - mix download /path/to/file/url.txt
+      IMPORTANT: A valid .txt file consists of one url per line
+    """
   end
 end

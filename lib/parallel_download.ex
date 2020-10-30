@@ -5,6 +5,7 @@ defmodule ParallelDownload do
   alias ParallelDownload.Client
 
   @max_concurrency Application.fetch_env!(:parallel_download, :max_concurrency)
+  @task_timeout Application.fetch_env!(:parallel_download, :task_timeout)
 
   def begin(urls) do
     request_stream =
@@ -16,7 +17,10 @@ defmodule ParallelDownload do
           Client.fetch(url)
           |> append_elapsed_time(start_time)
         end,
-        max_concurrency: @max_concurrency
+        [
+          max_concurrency: @max_concurrency,
+          timeout: @task_timeout
+        ]
       )
 
     Enum.map(request_stream, fn {:ok, response} -> IO.puts(response) end)
