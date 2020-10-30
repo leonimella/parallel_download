@@ -1,18 +1,21 @@
 defmodule ParallelDownload.Client do
   use Tesla
 
+  @behaviour ParallelDownload.ClientBehaviour
+
   @timeout Application.fetch_env!(:parallel_download, :request_timeout)
+
+  @spec fetch(binary()) :: String.t()
+  def fetch(url) do
+    client()
+    |> get(url)
+    |> parse_response(url)
+  end
 
   defp client() do
     Tesla.client([
       {Tesla.Middleware.Timeout, timeout: @timeout}
     ])
-  end
-
-  def fetch(url) do
-    client()
-    |> get(url)
-    |> parse_response(url)
   end
 
   defp parse_response({:ok, %{status: status}}, url) do

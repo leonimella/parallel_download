@@ -22,7 +22,8 @@ defmodule ParallelDownload.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tesla, "~>1.3.3"}
+      {:tesla, "~>1.3.3"},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 end

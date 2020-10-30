@@ -2,6 +2,8 @@ defmodule Mix.Tasks.Download do
   use Mix.Task
 
   @impl Mix.Task
+
+  @spec run(list()) :: any()
   def run(args) do
     if Enum.count(args) > 0 do
       [path | tail] = args
